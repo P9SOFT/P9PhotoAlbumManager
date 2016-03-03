@@ -150,8 +150,24 @@
     return _standby;
 }
 
+- (BOOL)authorized
+{
+    return ([PHPhotoLibrary authorizationStatus] == PHAuthorizationStatusAuthorized);
+}
+
 - (void)requestOperation:(HJPhotoAlbumManagerOperation)operation operandDict:(NSDictionary *)operandDict completion:(HJPhotoAlbumManagerCompletion)completion
 {
+    if( [PHPhotoLibrary authorizationStatus] != PHAuthorizationStatusAuthorized ) {
+        [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
+            if( status == PHAuthorizationStatusAuthorized ) {
+                [self requestOperation:operation operandDict:operandDict completion:completion];
+            } else {
+                [self postNotifyWithStatus:HJPhotoAlbumManagerStatusAccessDenied];
+            }
+        }];
+        return;
+    }
+    
     HJPhotoAlbumManagerStatus status = HJPhotoAlbumManagerStatusInternalError;
     switch( operation ) {
         case HJPhotoAlbumManagerOperationRequestAllAlbumsAndAssets :

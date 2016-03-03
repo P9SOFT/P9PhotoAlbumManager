@@ -54,6 +54,7 @@ typedef void(^HJPhotoAlbumManagerCompletion)(HJPhotoAlbumManagerStatus);
 + (HJPhotoAlbumManager *)sharedManager;
 
 - (BOOL)standbyWithWorkerName:(NSString *)workerName;
+- (BOOL)authorized;
 
 - (void)requestOperation:(HJPhotoAlbumManagerOperation)operation operandDict:(NSDictionary *)operandDict completion:(HJPhotoAlbumManagerCompletion)completion;
 - (void)clearCache;
