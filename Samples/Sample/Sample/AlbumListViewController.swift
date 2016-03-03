@@ -52,6 +52,8 @@ class AlbumListViewController: UIViewController, UITableViewDataSource, UITableV
     
     override func viewDidLayoutSubviews() {
         
+        super.viewDidLayoutSubviews()
+        
         var frame:CGRect = self.view.bounds
         frame.origin.y += UIApplication.sharedApplication().statusBarFrame.size.height
         frame.size.height -= UIApplication.sharedApplication().statusBarFrame.size.height

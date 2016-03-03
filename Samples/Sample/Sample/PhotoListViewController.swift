@@ -64,6 +64,8 @@ class PhotoListViewController: UIViewController, UICollectionViewDataSource, UIC
     
     override func viewDidLayoutSubviews() {
         
+        super.viewDidLayoutSubviews()
+        
         let length = (self.view.bounds.size.width - (separatorWidth*columnCountPerRow))/columnCountPerRow
         flowlayout?.itemSize = CGSize(width:length, height:length)
         var frame:CGRect = self.view.bounds
