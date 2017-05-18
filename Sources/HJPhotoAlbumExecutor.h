@@ -21,15 +21,14 @@
 #define     HJPhotoAlbumExecutorParameterKeyAlbums          @"HJPhotoAlbumExecutorParameterKeyAlbums"
 #define     HJPhotoAlbumExecutorParameterKeyAssetsForAlbums @"HJPhotoAlbumExecutorParameterKeyAssetsForAlbums"
 
-typedef enum _HJPhotoAlbumExecutorOperation_
+typedef NS_ENUM(NSInteger, HJPhotoAlbumExecutorOperation)
 {
     HJPhotoAlbumExecutorOperationRequestAllAlbumsAndAssets,
     HJPhotoAlbumExecutorOperationRequestAllAlbums,
     HJPhotoAlbumExecutorOperationRequestAllAssetsForAlbums
-    
-} HJPhotoAlbumExecutorOperation;
+};
 
-typedef enum _HJPhotoAlbumExecutorStatus_
+typedef NS_ENUM(NSInteger, HJPhotoAlbumExecutorStatus)
 {
     HJPhotoAlbumExecutorStatusDummy,
     HJPhotoAlbumExecutorStatusAllAlbumsAndAssetsReady,
@@ -39,8 +38,7 @@ typedef enum _HJPhotoAlbumExecutorStatus_
     HJPhotoAlbumExecutorStatusUnknownOperation,
     HJPhotoAlbumExecutorStatusInvalidParameter,
     HJPhotoAlbumExecutorStatusInternalError
-    
-} HJPhotoAlbumExecutorStatus;
+};
 
 @interface HJPhotoAlbumExecutor : HYExecuter
 

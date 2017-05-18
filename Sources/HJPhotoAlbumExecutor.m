@@ -131,10 +131,10 @@
             return NO;
         }
         NSMutableArray *allAlbums = [anQuery parameterForKey:HJPhotoAlbumExecutorParameterKeyAlbums];
-        if( ([allAlbums count] == 0) || ([allAlbums count] <= [albumIndexNumber unsignedIntegerValue]) ) {
+        if( (allAlbums.count == 0) || (allAlbums.count <= albumIndexNumber.unsignedIntegerValue) ) {
             return NO;
         }
-        if( (albums = [[NSMutableArray alloc] initWithObjects:allAlbums[[albumIndexNumber unsignedIntegerValue]], nil]) == nil ) {
+        if( (albums = [[NSMutableArray alloc] initWithObjects:allAlbums[albumIndexNumber.unsignedIntegerValue], nil]) == nil ) {
             return NO;
         }
         [anQuery setParameter:albums forKey:HJPhotoAlbumExecutorParameterKeyAlbums];

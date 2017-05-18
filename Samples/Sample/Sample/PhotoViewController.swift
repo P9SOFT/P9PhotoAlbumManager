@@ -21,7 +21,7 @@ class PhotoViewController: UIViewController, UIScrollViewDelegate {
         super.viewDidLoad()
         
         self.automaticallyAdjustsScrollViewInsets = false;
-        self.view.backgroundColor = UIColor.whiteColor()
+        self.view.backgroundColor = UIColor.white
         
         if (albumIndex == nil) || (assetIndex == nil) {
             return
@@ -34,24 +34,25 @@ class PhotoViewController: UIViewController, UIScrollViewDelegate {
         scrollView!.delegate = self;
         scrollView!.minimumZoomScale = 1.0
         scrollView!.maximumZoomScale = 5.0
-        scrollView!.backgroundColor = UIColor.clearColor()
+        scrollView!.backgroundColor = UIColor.clear
         self.view.addSubview(scrollView!)
         
         imageView = UIImageView()
         if imageView == nil {
             return
         }
-        imageView!.contentMode = UIViewContentMode.ScaleAspectFill
+        imageView!.contentMode = UIViewContentMode.scaleAspectFill
         scrollView?.addSubview(imageView!)
         
         // get the image data of asset.
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
-            let image = HJPhotoAlbumManager.sharedManager().imageOfAssetIndex(self.assetIndex!, forAlbumIndex:self.albumIndex!)
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+        
+        DispatchQueue.global(qos: .background).async {
+            let image = HJPhotoAlbumManager.default().image(ofAssetIndex: self.assetIndex!, forAlbumIndex:self.albumIndex!)
+            DispatchQueue.main.async(execute: { () -> Void in
                 self.imageView!.image = image
                 self.view.setNeedsLayout()
             })
-        })
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -64,11 +65,11 @@ class PhotoViewController: UIViewController, UIScrollViewDelegate {
         super.viewDidLayoutSubviews()
         
         var frame:CGRect = self.view.bounds
-        frame.origin.y += UIApplication.sharedApplication().statusBarFrame.size.height
-        frame.size.height -= UIApplication.sharedApplication().statusBarFrame.size.height
+        frame.origin.y += UIApplication.shared.statusBarFrame.size.height
+        frame.size.height -= UIApplication.shared.statusBarFrame.size.height
         scrollView?.frame = frame
         if let image = imageView?.image {
-            var imageFrame = CGRectZero
+            var imageFrame = CGRect.zero
             if frame.size.width < frame.size.height {
                 imageFrame.size.width = scrollView!.bounds.size.width
                 imageFrame.size.height = image.size.height * (scrollView!.bounds.size.width/image.size.width)
@@ -85,19 +86,19 @@ class PhotoViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         
         return imageView
     }
     
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
         if imageView != nil {
             self.updateUpdateToCenterOfViewForScrollView(imageView!, scrollView:scrollView)
         }
     }
     
-    private func updateUpdateToCenterOfViewForScrollView(view:UIView, scrollView:UIScrollView) {
+    fileprivate func updateUpdateToCenterOfViewForScrollView(_ view:UIView, scrollView:UIScrollView) {
         
         let containerSize = scrollView.bounds.size
         var frame = view.frame

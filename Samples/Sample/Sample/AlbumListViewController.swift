@@ -17,32 +17,32 @@ class AlbumListViewController: UIViewController, UITableViewDataSource, UITableV
         
         super.viewDidLoad()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:"photoAlbumManagerReport:", name:HJPhotoAlbumManagerNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(AlbumListViewController.photoAlbumManagerReport(_:)), name:NSNotification.Name(rawValue: HJPhotoAlbumManagerNotification), object: nil)
         
         self.automaticallyAdjustsScrollViewInsets = false;
-        self.view.backgroundColor = UIColor.whiteColor()
+        self.view.backgroundColor = UIColor.white
         
         albumTableView = UITableView()
         if albumTableView == nil {
             return
         }
         let nibName = UINib(nibName:"AlbumRecordTableViewCell", bundle:nil)
-        albumTableView!.registerNib(nibName, forCellReuseIdentifier:"AlbumRecordTableViewCell")
+        albumTableView!.register(nibName, forCellReuseIdentifier:"AlbumRecordTableViewCell")
         albumTableView!.dataSource = self
         albumTableView!.delegate = self
-        albumTableView!.backgroundColor = UIColor.clearColor()
+        albumTableView!.backgroundColor = UIColor.clear
         self.view.addSubview(albumTableView!)
         
         // request album list, and write code for result handling.
         // you can write code for result handling with response of notification handler 'photoAlbumManagerReport' as below.
-        HJPhotoAlbumManager.sharedManager().requestOperation(HJPhotoAlbumManagerOperationRequestAllAlbums, operandDict:nil) { (status:HJPhotoAlbumManagerStatus) -> Void in
+        HJPhotoAlbumManager.default().request(.requestAllAlbums, operandDict: nil) { (status:HJPhotoAlbumManagerStatus) in
             self.albumTableView?.reloadData()
         }
     }
     
     deinit {
         
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
     
     override func didReceiveMemoryWarning() {
@@ -55,51 +55,51 @@ class AlbumListViewController: UIViewController, UITableViewDataSource, UITableV
         super.viewDidLayoutSubviews()
         
         var frame:CGRect = self.view.bounds
-        frame.origin.y += UIApplication.sharedApplication().statusBarFrame.size.height
-        frame.size.height -= UIApplication.sharedApplication().statusBarFrame.size.height
+        frame.origin.y += UIApplication.shared.statusBarFrame.size.height
+        frame.size.height -= UIApplication.shared.statusBarFrame.size.height
         albumTableView?.frame = frame
     }
     
-    func photoAlbumManagerReport(notification:NSNotification) {
+    func photoAlbumManagerReport(_ notification:Notification) {
         
         // you can write code as below for result handling, but in this case, just print log.
         // because we already pass the code for result handler when requesting data at 'viewDidLoad'.
         if let userInfo = notification.userInfo {
-            if let statusNumber = userInfo[HJPhotoAlbumManagerParameterKeyStatus] {
-                let status = HJPhotoAlbumManagerStatus(rawValue:UInt32(statusNumber.integerValue))
-                print(status)
+            if let statusNumber = userInfo[HJPhotoAlbumManagerParameterKeyStatus] as? Int {
+                let status = HJPhotoAlbumManagerStatus(rawValue:statusNumber)
+                print(status ?? "??")
             }
         }
         
     }
     
-    func numberOfSectionsInTableView(tableView:UITableView) -> Int {
+    func numberOfSections(in tableView:UITableView) -> Int {
         
         return 1
     }
     
-    func tableView(tableView:UITableView, numberOfRowsInSection section:Int) -> Int {
+    func tableView(_ tableView:UITableView, numberOfRowsInSection section:Int) -> Int {
         
-        return Int(HJPhotoAlbumManager.sharedManager().numberOfAlbums())
+        return Int(HJPhotoAlbumManager.default().numberOfAlbums())
     }
     
-    func tableView(tableView:UITableView, heightForRowAtIndexPath indexPath:NSIndexPath) -> CGFloat {
+    func tableView(_ tableView:UITableView, heightForRowAt indexPath:IndexPath) -> CGFloat {
         
         return 80
     }
     
-    func tableView(tableView:UITableView, cellForRowAtIndexPath indexPath:NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView:UITableView, cellForRowAt indexPath:IndexPath) -> UITableViewCell {
         
-        let cell:AlbumRecordTableViewCell = albumTableView!.dequeueReusableCellWithIdentifier("AlbumRecordTableViewCell")! as! AlbumRecordTableViewCell
-        cell.coverImageView.image = HJPhotoAlbumManager.sharedManager().posterImageForAlbumIndex(indexPath.row)
-        cell.titleLabel.text = HJPhotoAlbumManager.sharedManager().nameForAlbumIndex(indexPath.row)
-        cell.countLabel.text = "\(HJPhotoAlbumManager.sharedManager().numberOfAssetsForAlbumIndex(indexPath.row))"
+        let cell:AlbumRecordTableViewCell = albumTableView!.dequeueReusableCell(withIdentifier: "AlbumRecordTableViewCell")! as! AlbumRecordTableViewCell
+        cell.coverImageView.image = HJPhotoAlbumManager.default().posterImage(forAlbumIndex: indexPath.row)
+        cell.titleLabel.text = HJPhotoAlbumManager.default().name(forAlbumIndex: indexPath.row)
+        cell.countLabel.text = "\(HJPhotoAlbumManager.default().numberOfAssets(forAlbumIndex: indexPath.row))"
         return cell
     }
     
-    func tableView(tableView:UITableView, didSelectRowAtIndexPath indexPath:NSIndexPath) {
+    func tableView(_ tableView:UITableView, didSelectRowAt indexPath:IndexPath) {
         
-        tableView.deselectRowAtIndexPath(indexPath, animated:true)
+        tableView.deselectRow(at: indexPath, animated:true)
         let photoListViewController = PhotoListViewController()
         photoListViewController.albumIndex = indexPath.row
         self.navigationController?.pushViewController(photoListViewController, animated:true)

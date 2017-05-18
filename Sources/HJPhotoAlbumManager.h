@@ -17,7 +17,7 @@
 #define     HJPhotoAlbumManagerParameterKeyAlbumIndex       @"HJPhotoAlbumManagerParameterKeyAlbumIndex"
 #define     HJPhotoAlbumManagerParameterKeyMediaType        @"HJPhotoAlbumManagerParameterKeyMediaType"
 
-typedef enum _HJPhotoAlbumManagerStatus_
+typedef NS_ENUM(NSInteger, HJPhotoAlbumManagerStatus)
 {
     HJPhotoAlbumManagerStatusIdle,
     HJPhotoAlbumManagerStatusRequesingAllAlbumsAndAssets,
@@ -28,45 +28,44 @@ typedef enum _HJPhotoAlbumManagerStatus_
     HJPhotoAlbumManagerStatusAllAssetsForAlbumReady,
     HJPhotoAlbumManagerStatusAccessDenied,
     HJPhotoAlbumManagerStatusInternalError
-    
-} HJPhotoAlbumManagerStatus;
+};
 
-typedef enum _HJPhotoAlbumManagerOperation_
+typedef NS_ENUM(NSInteger, HJPhotoAlbumManagerOperation)
 {
     HJPhotoAlbumManagerOperationRequestAllAlbumsAndAssets,
     HJPhotoAlbumManagerOperationRequestAllAlbums,
     HJPhotoAlbumManagerOperationRequestAllAssetsForAlbum
     
-} HJPhotoAlbumManagerOperation;
+};
 
-typedef enum _HJPhotoAlbummanagerMediaType_
+typedef NS_ENUM(NSInteger, HJPhotoAlbumManagerMediaType)
 {
     HJPhotoAlbumManagerMediaTypeImage,
     HJPhotoAlbumManagerMediaTypeVideo,
     HJPhotoAlbumManagerMediaTypeAudio
     
-} HJPhotoAlbumManagerMediaType;
+};
 
 typedef void(^HJPhotoAlbumManagerCompletion)(HJPhotoAlbumManagerStatus);
 
 @interface HJPhotoAlbumManager : HYManager
 
-+ (HJPhotoAlbumManager *)sharedManager;
++ (HJPhotoAlbumManager * _Nonnull)defaultHJPhotoAlbumManager;
 
-- (BOOL)standbyWithWorkerName:(NSString *)workerName;
+- (BOOL)standbyWithWorkerName:(NSString * _Nullable)workerName;
 - (BOOL)authorized;
 
-- (void)requestOperation:(HJPhotoAlbumManagerOperation)operation operandDict:(NSDictionary *)operandDict completion:(HJPhotoAlbumManagerCompletion)completion;
+- (void)requestOperation:(HJPhotoAlbumManagerOperation)operation operandDict:(NSDictionary * _Nullable)operandDict completion:(HJPhotoAlbumManagerCompletion _Nullable)completion;
 - (void)clearCache;
 
 - (NSUInteger)numberOfAlbums;
-- (NSString *)nameForAlbumIndex:(NSInteger)albumIndex;
+- (NSString * _Nullable)nameForAlbumIndex:(NSInteger)albumIndex;
 - (NSUInteger)numberOfAssetsForAlbumIndex:(NSInteger)albumIndex;
-- (UIImage *)posterImageForAlbumIndex:(NSInteger)albumIndex;
-- (UIImage *)thumbnailImageOfAssetIndex:(NSInteger)assetIndex forAlbumIndex:(NSInteger)albumIndex;
-- (UIImage *)imageOfAssetIndex:(NSInteger)assetIndex forAlbumIndex:(NSInteger)albumIndex;
+- (UIImage * _Nullable)posterImageForAlbumIndex:(NSInteger)albumIndex;
+- (UIImage * _Nullable)thumbnailImageOfAssetIndex:(NSInteger)assetIndex forAlbumIndex:(NSInteger)albumIndex;
+- (UIImage * _Nullable)imageOfAssetIndex:(NSInteger)assetIndex forAlbumIndex:(NSInteger)albumIndex;
 
 @property (nonatomic, readonly) BOOL standby;
-@property (nonatomic, readonly) NSString *workerName;
+@property (nonatomic, readonly) NSString * _Nullable workerName;
 
 @end

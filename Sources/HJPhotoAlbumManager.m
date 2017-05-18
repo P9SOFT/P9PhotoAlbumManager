@@ -25,7 +25,7 @@
 
 @implementation HJPhotoAlbumManager
 
-- (id)init
+- (instancetype)init
 {
     if( (self = [super init]) != nil ) {
         if( (_albums = [[NSMutableArray alloc] init]) == nil ) {
@@ -73,12 +73,12 @@
                 [_assetsForAlbumIndex removeAllObjects];
                 albums = [result parameterForKey:HJPhotoAlbumExecutorParameterKeyAlbums];
                 assetsForAlbums = [result parameterForKey:HJPhotoAlbumExecutorParameterKeyAssetsForAlbums];
-                if( (albums != nil) && (assetsForAlbums != nil) && ([albums count] == [assetsForAlbums count]) ) {
+                if( (albums != nil) && (assetsForAlbums != nil) && (albums.count == assetsForAlbums.count) ) {
                     [_albums addObjectsFromArray:albums];
-                    NSUInteger count = [assetsForAlbums count];
+                    NSUInteger count = assetsForAlbums.count;
                     NSUInteger i;
                     for( i=0 ; i<count ; ++i ) {
-                        [_assetsForAlbumIndex setObject:[assetsForAlbums objectAtIndex:i] forKey:@(i).stringValue];
+                        _assetsForAlbumIndex[@(i).stringValue] = assetsForAlbums[i];
                     }
                 }
                 [_lock unlock];
@@ -99,10 +99,10 @@
         case HJPhotoAlbumExecutorOperationRequestAllAssetsForAlbums :
             if( executorStatus == HJPhotoAlbumExecutorStatusAllAssetsForAlbumsReady ) {
                 assetsForAlbums = [result parameterForKey:HJPhotoAlbumExecutorParameterKeyAssetsForAlbums];
-                if( (albumIndexNumber != nil) && ([assetsForAlbums count] == 1) ) {
+                if( (albumIndexNumber != nil) && (assetsForAlbums.count == 1) ) {
                     [_lock lock];
-                    [_assetsForAlbumIndex setObject:[assetsForAlbums objectAtIndex:0] forKey:albumIndexNumber.stringValue];
-                    [paramDict setObject:albumIndexNumber forKey:HJPhotoAlbumManagerParameterKeyAlbumIndex];
+                    _assetsForAlbumIndex[albumIndexNumber.stringValue] = assetsForAlbums[0];
+                    paramDict[HJPhotoAlbumManagerParameterKeyAlbumIndex] = albumIndexNumber;
                     managerStatus = HJPhotoAlbumManagerStatusAllAssetsForAlbumReady;
                     [_lock unlock];
                 }
@@ -116,7 +116,7 @@
         completion(managerStatus);
     }
     
-    [paramDict setObject:@(managerStatus) forKey:HJPhotoAlbumManagerParameterKeyStatus];
+    paramDict[HJPhotoAlbumManagerParameterKeyStatus] = @(managerStatus);
     
     return paramDict;
 }
@@ -128,7 +128,7 @@
     });
 }
 
-+ (HJPhotoAlbumManager *)sharedManager
++ (HJPhotoAlbumManager *)defaultHJPhotoAlbumManager
 {
     static dispatch_once_t once;
     static HJPhotoAlbumManager *sharedInstance;
@@ -184,8 +184,8 @@
     }
     
     PHAssetMediaType mediaType;
-    NSNumber *mediaTypeNumber = [operandDict objectForKey:HJPhotoAlbumManagerParameterKeyMediaType];
-    switch( (HJPhotoAlbumManagerMediaType)[mediaTypeNumber integerValue] ) {
+    NSNumber *mediaTypeNumber = operandDict[HJPhotoAlbumManagerParameterKeyMediaType];
+    switch( (HJPhotoAlbumManagerMediaType)mediaTypeNumber.integerValue ) {
         case HJPhotoAlbumManagerMediaTypeImage :
             mediaType = PHAssetMediaTypeImage;
             break;
@@ -210,7 +210,7 @@
     [self postNotifyWithStatus:status];
     
     [query setParameter:@(operation) forKey:HJPhotoAlbumExecutorParameterKeyOperation];
-    [query setParameter:[operandDict objectForKey:HJPhotoAlbumManagerParameterKeyAlbumIndex] forKey:HJPhotoAlbumExecutorParameterKeyAlbumIndex];
+    [query setParameter:operandDict[HJPhotoAlbumManagerParameterKeyAlbumIndex] forKey:HJPhotoAlbumExecutorParameterKeyAlbumIndex];
     [query setParameter:@(mediaType) forKey:HJPhotoAlbumExecutorParameterKeyMediaType];
     [query setParameter:completion forKey:HJPhotoAlbumExecutorParameterKeyCompletionBlock];
     
@@ -230,7 +230,7 @@
     NSUInteger count = 0;
     
     [_lock lock];
-    count = [_albums count];
+    count = _albums.count;
     [_lock unlock];
     
     return count;
@@ -241,8 +241,8 @@
     NSString *name = nil;
     
     [_lock lock];
-    if( (0 <= albumIndex) && (albumIndex < [_albums count]) ) {
-        name = [[_albums objectAtIndex:albumIndex] localizedTitle];
+    if( (0 <= albumIndex) && (albumIndex < _albums.count) ) {
+        name = [_albums[albumIndex] localizedTitle];
     }
     [_lock unlock];
     
@@ -254,8 +254,8 @@
     NSUInteger numberOfAssets = 0;
     
     [_lock lock];
-    if( (0 <= albumIndex) && (albumIndex < [_albums count]) ) {
-        numberOfAssets = [[PHAsset fetchAssetsInAssetCollection:[_albums objectAtIndex:albumIndex] options:nil] count];
+    if( (0 <= albumIndex) && (albumIndex < _albums.count) ) {
+        numberOfAssets = [PHAsset fetchAssetsInAssetCollection:_albums[albumIndex] options:nil].count;
     }
     [_lock unlock];
     
@@ -267,7 +267,7 @@
     PHFetchOptions *fetchOptions = nil;
     
     [_lock lock];
-    if( (0 <= albumIndex) && (albumIndex < [_albums count]) ) {
+    if( (0 <= albumIndex) && (albumIndex < _albums.count) ) {
         fetchOptions = [[PHFetchOptions alloc] init];
     }
     [_lock unlock];
@@ -278,8 +278,8 @@
     
     __block UIImage *image = nil;
     fetchOptions.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:YES]];
-    PHFetchResult *fetchResult = [PHAsset fetchKeyAssetsInAssetCollection:[_albums objectAtIndex:albumIndex] options:fetchOptions];
-    PHAsset *asset = [fetchResult firstObject];
+    PHFetchResult *fetchResult = [PHAsset fetchKeyAssetsInAssetCollection:_albums[albumIndex] options:fetchOptions];
+    PHAsset *asset = fetchResult.firstObject;
     PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
     options.synchronous = YES;
     options.resizeMode = PHImageRequestOptionsResizeModeExact;
@@ -295,7 +295,7 @@
 
 - (UIImage *)thumbnailImageOfAssetIndex:(NSInteger)assetIndex forAlbumIndex:(NSInteger)albumIndex
 {
-    if( (albumIndex < 0) || (albumIndex >= [_albums count]) ) {
+    if( (albumIndex < 0) || (albumIndex >= _albums.count) ) {
         return nil;
     }
     
@@ -303,9 +303,9 @@
     PHAsset *asset = nil;
     
     [_lock lock];
-    if( (assets = [_assetsForAlbumIndex objectForKey:@(albumIndex).stringValue]) != nil ) {
-        if( assetIndex <= [assets count] ) {
-            asset = [assets objectAtIndex:assetIndex];
+    if( (assets = _assetsForAlbumIndex[@(albumIndex).stringValue]) != nil ) {
+        if( assetIndex <= assets.count ) {
+            asset = assets[assetIndex];
         }
     }
     [_lock unlock];
@@ -330,7 +330,7 @@
 
 - (UIImage *)imageOfAssetIndex:(NSInteger)assetIndex forAlbumIndex:(NSInteger)albumIndex
 {
-    if( (albumIndex < 0) || (albumIndex >= [_albums count]) ) {
+    if( (albumIndex < 0) || (albumIndex >= _albums.count) ) {
         return nil;
     }
     
@@ -338,9 +338,9 @@
     PHAsset *asset = nil;
     
     [_lock lock];
-    if( (assets = [_assetsForAlbumIndex objectForKey:@(albumIndex).stringValue]) != nil ) {
-        if( assetIndex <= [assets count] ) {
-            asset = [assets objectAtIndex:assetIndex];
+    if( (assets = _assetsForAlbumIndex[@(albumIndex).stringValue]) != nil ) {
+        if( assetIndex <= assets.count ) {
+            asset = assets[assetIndex];
         }
     }
     [_lock unlock];

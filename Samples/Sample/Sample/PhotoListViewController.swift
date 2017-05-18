@@ -22,7 +22,7 @@ class PhotoListViewController: UIViewController, UICollectionViewDataSource, UIC
         super.viewDidLoad()
         
         self.automaticallyAdjustsScrollViewInsets = false;
-        self.view.backgroundColor = UIColor.whiteColor()
+        self.view.backgroundColor = UIColor.white
         
         if albumIndex == nil {
             return
@@ -37,23 +37,23 @@ class PhotoListViewController: UIViewController, UICollectionViewDataSource, UIC
         flowlayout!.minimumInteritemSpacing = 0;
         flowlayout!.minimumLineSpacing = separatorWidth;
         
-        photoListCollectionView = UICollectionView(frame:CGRectZero, collectionViewLayout:flowlayout!)
+        photoListCollectionView = UICollectionView(frame:CGRect.zero, collectionViewLayout:flowlayout!)
         if photoListCollectionView == nil {
             return
         }
         let nibName = UINib(nibName:"PhotoRecordCollectionViewCell", bundle:nil)
-        photoListCollectionView!.registerNib(nibName, forCellWithReuseIdentifier:"PhotoRecordCollectionViewCell")
+        photoListCollectionView!.register(nibName, forCellWithReuseIdentifier:"PhotoRecordCollectionViewCell")
         photoListCollectionView!.dataSource = self
         photoListCollectionView!.delegate = self
-        photoListCollectionView!.backgroundColor = UIColor.clearColor()
+        photoListCollectionView!.backgroundColor = UIColor.clear
         photoListCollectionView!.alwaysBounceVertical = true
         self.view.addSubview(photoListCollectionView!)
         
         if albumIndex != nil {
             // request asset list of specified album, and write code for result handling.
-            HJPhotoAlbumManager.sharedManager().requestOperation(HJPhotoAlbumManagerOperationRequestAllAssetsForAlbum, operandDict:[HJPhotoAlbumManagerParameterKeyAlbumIndex:NSNumber(integer:albumIndex!)]) { (status:HJPhotoAlbumManagerStatus) -> Void in
+            HJPhotoAlbumManager.default().request(.requestAllAssetsForAlbum, operandDict: [HJPhotoAlbumManagerParameterKeyAlbumIndex:NSNumber(value: albumIndex! as Int)], completion: { (status:HJPhotoAlbumManagerStatus) in
                 self.photoListCollectionView?.reloadData()
-            }
+            })
         }
     }
     
@@ -70,38 +70,38 @@ class PhotoListViewController: UIViewController, UICollectionViewDataSource, UIC
         flowlayout?.itemSize = CGSize(width:length, height:length)
         var frame:CGRect = self.view.bounds
         frame.origin.x += separatorWidth
-        frame.origin.y += UIApplication.sharedApplication().statusBarFrame.size.height
-        frame.size.height -= UIApplication.sharedApplication().statusBarFrame.size.height
+        frame.origin.y += UIApplication.shared.statusBarFrame.size.height
+        frame.size.height -= UIApplication.shared.statusBarFrame.size.height
         frame.size.width -= (separatorWidth*2.0)
         photoListCollectionView?.frame = frame
     }
     
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         
         return 1
     }
     
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         if self.albumIndex == nil {
             return 0
         }
         
-        return Int(HJPhotoAlbumManager.sharedManager().numberOfAssetsForAlbumIndex(self.albumIndex!))
+        return Int(HJPhotoAlbumManager.default().numberOfAssets(forAlbumIndex: self.albumIndex!))
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell:PhotoRecordCollectionViewCell = collectionView.dequeueReusableCellWithReuseIdentifier("PhotoRecordCollectionViewCell", forIndexPath: indexPath) as! PhotoRecordCollectionViewCell
+        let cell:PhotoRecordCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoRecordCollectionViewCell", for: indexPath) as! PhotoRecordCollectionViewCell
         if self.albumIndex != nil {
-            cell.photoImageView.image = HJPhotoAlbumManager.sharedManager().thumbnailImageOfAssetIndex(indexPath.row, forAlbumIndex:self.albumIndex!)
+            cell.photoImageView.image = HJPhotoAlbumManager.default().thumbnailImage(ofAssetIndex: indexPath.row, forAlbumIndex:self.albumIndex!)
         }
         return cell;
     }
     
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        collectionView.deselectItemAtIndexPath(indexPath, animated:true)
+        collectionView.deselectItem(at: indexPath, animated:true)
         let photoViewController = PhotoViewController()
         photoViewController.albumIndex = self.albumIndex!
         photoViewController.assetIndex = indexPath.row
