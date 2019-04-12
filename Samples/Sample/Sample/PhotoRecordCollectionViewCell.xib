@@ -1,8 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -17,17 +21,27 @@
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mjO-qf-LWs" userLabel="photoImageView">
                         <rect key="frame" x="0.0" y="0.0" width="150" height="144"/>
                     </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xov-vZ-oPJ" userLabel="DeleteButton">
+                        <rect key="frame" x="120" y="0.0" width="30" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="30" id="Gp9-A9-jYg"/>
+                            <constraint firstAttribute="width" secondItem="xov-vZ-oPJ" secondAttribute="height" multiplier="1:1" id="Tmd-aj-SV1"/>
+                        </constraints>
+                        <state key="normal" title="⛔️"/>
+                    </button>
                 </subviews>
-                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
             <constraints>
                 <constraint firstItem="mjO-qf-LWs" firstAttribute="height" secondItem="aE8-Ad-wmE" secondAttribute="height" id="3ti-sD-oms"/>
+                <constraint firstItem="xov-vZ-oPJ" firstAttribute="trailing" secondItem="mjO-qf-LWs" secondAttribute="trailing" id="Qj6-P7-P1q"/>
                 <constraint firstItem="mjO-qf-LWs" firstAttribute="top" secondItem="aE8-Ad-wmE" secondAttribute="top" id="TND-Y2-ZuY"/>
                 <constraint firstItem="mjO-qf-LWs" firstAttribute="leading" secondItem="aE8-Ad-wmE" secondAttribute="leading" id="cJr-hb-T48"/>
+                <constraint firstItem="xov-vZ-oPJ" firstAttribute="top" secondItem="mjO-qf-LWs" secondAttribute="top" id="eWQ-O3-uib"/>
                 <constraint firstItem="mjO-qf-LWs" firstAttribute="width" secondItem="aE8-Ad-wmE" secondAttribute="width" id="iKw-lb-Vjt"/>
             </constraints>
             <size key="customSize" width="150" height="144"/>
             <connections>
+                <outlet property="deleteButton" destination="xov-vZ-oPJ" id="6Fw-JZ-Crl"/>
                 <outlet property="photoImageView" destination="mjO-qf-LWs" id="b3W-HM-TtV"/>
             </connections>
             <point key="canvasLocation" x="388" y="339"/>

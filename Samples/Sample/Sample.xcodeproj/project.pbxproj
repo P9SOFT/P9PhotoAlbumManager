@@ -10,8 +10,6 @@
 		02ADF8681C7EC1020082B16E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02ADF8671C7EC1020082B16E /* AppDelegate.swift */; };
 		02ADF86F1C7EC1020082B16E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02ADF86E1C7EC1020082B16E /* Assets.xcassets */; };
 		02ADF8721C7EC1020082B16E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 02ADF8701C7EC1020082B16E /* LaunchScreen.storyboard */; };
-		02ADF87D1C7EC1530082B16E /* HJPhotoAlbumManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 02ADF87C1C7EC1530082B16E /* HJPhotoAlbumManager.m */; };
-		02ADF8831C7FEE110082B16E /* HJPhotoAlbumExecutor.m in Sources */ = {isa = PBXBuildFile; fileRef = 02ADF8821C7FEE110082B16E /* HJPhotoAlbumExecutor.m */; };
 		02ADF8861C8669D80082B16E /* AlbumListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02ADF8841C8669D80082B16E /* AlbumListViewController.swift */; };
 		02ADF8871C8669D80082B16E /* PhotoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02ADF8851C8669D80082B16E /* PhotoListViewController.swift */; };
 		02ADF8891C867A110082B16E /* AlbumRecordTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02ADF8881C867A110082B16E /* AlbumRecordTableViewCell.xib */; };
@@ -19,7 +17,7 @@
 		02ADF88D1C86AC720082B16E /* PhotoRecordCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02ADF88C1C86AC720082B16E /* PhotoRecordCollectionViewCell.xib */; };
 		02ADF88F1C86ACF40082B16E /* PhotoRecordCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02ADF88E1C86ACF40082B16E /* PhotoRecordCollectionViewCell.swift */; };
 		02ADF8911C86ED2E0082B16E /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02ADF8901C86ED2E0082B16E /* PhotoViewController.swift */; };
-		DC64FEB04E551042AF0AD8E7 /* libPods-Sample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C401AAADB55CDE24DF5FF489 /* libPods-Sample.a */; };
+		272C9413224DDF6E0054CD26 /* P9PhotoAlbumManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272C9412224DDF6E0054CD26 /* P9PhotoAlbumManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,11 +26,6 @@
 		02ADF86E1C7EC1020082B16E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		02ADF8711C7EC1020082B16E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		02ADF8731C7EC1020082B16E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		02ADF87A1C7EC1530082B16E /* Sample-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Sample-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
-		02ADF87B1C7EC1530082B16E /* HJPhotoAlbumManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HJPhotoAlbumManager.h; path = ../../Sources/HJPhotoAlbumManager.h; sourceTree = "<group>"; };
-		02ADF87C1C7EC1530082B16E /* HJPhotoAlbumManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HJPhotoAlbumManager.m; path = ../../Sources/HJPhotoAlbumManager.m; sourceTree = "<group>"; };
-		02ADF8811C7FEE110082B16E /* HJPhotoAlbumExecutor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HJPhotoAlbumExecutor.h; path = ../../Sources/HJPhotoAlbumExecutor.h; sourceTree = "<group>"; };
-		02ADF8821C7FEE110082B16E /* HJPhotoAlbumExecutor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HJPhotoAlbumExecutor.m; path = ../../Sources/HJPhotoAlbumExecutor.m; sourceTree = "<group>"; };
 		02ADF8841C8669D80082B16E /* AlbumListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumListViewController.swift; sourceTree = "<group>"; };
 		02ADF8851C8669D80082B16E /* PhotoListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoListViewController.swift; sourceTree = "<group>"; };
 		02ADF8881C867A110082B16E /* AlbumRecordTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlbumRecordTableViewCell.xib; sourceTree = "<group>"; };
@@ -40,9 +33,7 @@
 		02ADF88C1C86AC720082B16E /* PhotoRecordCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotoRecordCollectionViewCell.xib; sourceTree = "<group>"; };
 		02ADF88E1C86ACF40082B16E /* PhotoRecordCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoRecordCollectionViewCell.swift; sourceTree = "<group>"; };
 		02ADF8901C86ED2E0082B16E /* PhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
-		7393D371A17EA05F3A2BEA17 /* Pods-Sample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Sample/Pods-Sample.debug.xcconfig"; sourceTree = "<group>"; };
-		B111EBE24BE36E507DE4F3D1 /* Pods-Sample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sample.release.xcconfig"; path = "Pods/Target Support Files/Pods-Sample/Pods-Sample.release.xcconfig"; sourceTree = "<group>"; };
-		C401AAADB55CDE24DF5FF489 /* libPods-Sample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Sample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		272C9412224DDF6E0054CD26 /* P9PhotoAlbumManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = P9PhotoAlbumManager.swift; path = ../../Sources/P9PhotoAlbumManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,7 +41,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DC64FEB04E551042AF0AD8E7 /* libPods-Sample.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,10 +51,8 @@
 			isa = PBXGroup;
 			children = (
 				02ADF8661C7EC1020082B16E /* Sample */,
-				02ADF8791C7EC1280082B16E /* HJPhotoAlbumManager */,
+				02ADF8791C7EC1280082B16E /* P9PhotoAlbumManager */,
 				02ADF8651C7EC1020082B16E /* Products */,
-				05C6CAF532CCBC7DBB35829A /* Pods */,
-				9AB1C0F797073499782F6BF1 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -85,42 +73,21 @@
 				02ADF8901C86ED2E0082B16E /* PhotoViewController.swift */,
 				02ADF88A1C867F8F0082B16E /* AlbumRecordTableViewCell.swift */,
 				02ADF88E1C86ACF40082B16E /* PhotoRecordCollectionViewCell.swift */,
-				02ADF86E1C7EC1020082B16E /* Assets.xcassets */,
 				02ADF8701C7EC1020082B16E /* LaunchScreen.storyboard */,
 				02ADF8881C867A110082B16E /* AlbumRecordTableViewCell.xib */,
 				02ADF88C1C86AC720082B16E /* PhotoRecordCollectionViewCell.xib */,
-				02ADF87A1C7EC1530082B16E /* Sample-Bridging-Header.h */,
+				02ADF86E1C7EC1020082B16E /* Assets.xcassets */,
 				02ADF8731C7EC1020082B16E /* Info.plist */,
 			);
 			path = Sample;
 			sourceTree = "<group>";
 		};
-		02ADF8791C7EC1280082B16E /* HJPhotoAlbumManager */ = {
+		02ADF8791C7EC1280082B16E /* P9PhotoAlbumManager */ = {
 			isa = PBXGroup;
 			children = (
-				02ADF87B1C7EC1530082B16E /* HJPhotoAlbumManager.h */,
-				02ADF87C1C7EC1530082B16E /* HJPhotoAlbumManager.m */,
-				02ADF8811C7FEE110082B16E /* HJPhotoAlbumExecutor.h */,
-				02ADF8821C7FEE110082B16E /* HJPhotoAlbumExecutor.m */,
+				272C9412224DDF6E0054CD26 /* P9PhotoAlbumManager.swift */,
 			);
-			name = HJPhotoAlbumManager;
-			sourceTree = "<group>";
-		};
-		05C6CAF532CCBC7DBB35829A /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				7393D371A17EA05F3A2BEA17 /* Pods-Sample.debug.xcconfig */,
-				B111EBE24BE36E507DE4F3D1 /* Pods-Sample.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		9AB1C0F797073499782F6BF1 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				C401AAADB55CDE24DF5FF489 /* libPods-Sample.a */,
-			);
-			name = Frameworks;
+			name = P9PhotoAlbumManager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -130,12 +97,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 02ADF8761C7EC1020082B16E /* Build configuration list for PBXNativeTarget "Sample" */;
 			buildPhases = (
-				0BF64D4159CACA305C466C1E /* [CP] Check Pods Manifest.lock */,
 				02ADF8601C7EC1020082B16E /* Sources */,
 				02ADF8611C7EC1020082B16E /* Frameworks */,
 				02ADF8621C7EC1020082B16E /* Resources */,
-				5D21FA32017594E33248AD8C /* [CP] Embed Pods Frameworks */,
-				9C9467D32A0560FA34523E13 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -153,12 +117,14 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0720;
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = "P9 SOFT, Inc.";
 				TargetAttributes = {
 					02ADF8631C7EC1020082B16E = {
 						CreatedOnToolsVersion = 7.2.1;
+						DevelopmentTeam = YN6AZK6A27;
 						LastSwiftMigration = 0830;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -194,61 +160,12 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		0BF64D4159CACA305C466C1E /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		5D21FA32017594E33248AD8C /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Sample/Pods-Sample-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		9C9467D32A0560FA34523E13 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Sample/Pods-Sample-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		02ADF8601C7EC1020082B16E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				02ADF8831C7FEE110082B16E /* HJPhotoAlbumExecutor.m in Sources */,
-				02ADF87D1C7EC1530082B16E /* HJPhotoAlbumManager.m in Sources */,
+				272C9413224DDF6E0054CD26 /* P9PhotoAlbumManager.swift in Sources */,
 				02ADF88F1C86ACF40082B16E /* PhotoRecordCollectionViewCell.swift in Sources */,
 				02ADF88B1C867F8F0082B16E /* AlbumRecordTableViewCell.swift in Sources */,
 				02ADF8681C7EC1020082B16E /* AppDelegate.swift in Sources */,
@@ -280,14 +197,22 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -327,14 +252,22 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -362,34 +295,42 @@
 		};
 		02ADF8771C7EC1020082B16E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7393D371A17EA05F3A2BEA17 /* Pods-Sample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = YN6AZK6A27;
 				INFOPLIST_FILE = Sample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.p9soft.Sample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "Sample-Bridging-Header.h";
+				PROVISIONING_PROFILE_SPECIFIER = Playground_dev;
+				SWIFT_INSTALL_OBJC_HEADER = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_PRECOMPILE_BRIDGING_HEADER = YES;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
 		02ADF8781C7EC1020082B16E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B111EBE24BE36E507DE4F3D1 /* Pods-Sample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Sample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.p9soft.Sample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "Sample-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_INSTALL_OBJC_HEADER = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_PRECOMPILE_BRIDGING_HEADER = YES;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};

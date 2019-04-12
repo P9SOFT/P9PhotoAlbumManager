@@ -15,23 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIGestureRecognizerDelega
     var window:UIWindow?
     var navigationController:UINavigationController?
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        
-        // add a work to hydra
-        if( Hydra.default().addCommonWorker() == false ) {
-            return false
-        }
-        
-        // standby HJPhotoAlbumManager and bind to hydra
-        if HJPhotoAlbumManager.default().standby(withWorkerName: HydraCommonWorkerName) == false {
-            return false
-        }
-        if HJPhotoAlbumManager.default().bind(toHydra: Hydra.default()) == false {
-            return false
-        }
-        
-        // start hydra
-        Hydra.default().startAllWorkers()
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         navigationController = UINavigationController(rootViewController:AlbumListViewController())
         navigationController?.interactivePopGestureRecognizer?.delegate = self

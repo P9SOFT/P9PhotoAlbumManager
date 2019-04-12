@@ -11,8 +11,8 @@ import UIKit
 
 class AlbumRecordTableViewCell: UITableViewCell {
     
-    @IBOutlet var coverImageView: UIImageView!
-    @IBOutlet var titleLabel: UILabel!
-    @IBOutlet var countLabel: UILabel!
+    @IBOutlet weak var coverImageView: UIImageView!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var countLabel: UILabel!
     
 }
