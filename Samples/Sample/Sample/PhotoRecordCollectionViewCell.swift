@@ -9,8 +9,29 @@
 
 import UIKit
 
+protocol PhotoRecordCollectionViewCellDelegate: class {
+    
+    func deleteButtonTouchUpInside(index:Int)
+}
+
 class PhotoRecordCollectionViewCell: UICollectionViewCell {
     
-    @IBOutlet var photoImageView: UIImageView!
+    @IBOutlet weak var photoImageView: UIImageView!
+    @IBOutlet weak var deleteButton: UIButton!
     
+    var index:Int?
+    weak var delegate:PhotoRecordCollectionViewCellDelegate?
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        deleteButton.addTarget(self, action: #selector(deleteButtonTouchUpInside(sender:)), for: .touchUpInside)
+    }
+    
+    @objc func deleteButtonTouchUpInside(sender:UIButton) {
+        
+        if let index = index {
+            delegate?.deleteButtonTouchUpInside(index: index)
+        }
+    }
 }
