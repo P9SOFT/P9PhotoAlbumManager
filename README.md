@@ -1,7 +1,7 @@
 P9PhotoAlbumManager
 ============
 
-Easy, and quick library for handling iOS camera.
+Easy, and quick library for handling iOS Photo album.
 
 # Installation
 
