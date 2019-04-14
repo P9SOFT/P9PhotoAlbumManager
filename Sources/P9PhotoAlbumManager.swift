@@ -19,12 +19,12 @@ extension Notification.Name {
 
 open class P9PhotoAlbumManager: NSObject {
     
-    @objc static let NotificationOperationObjcKey = "P9PhotoAlbumManagerNotificationOperationObjcKey"
-    @objc static let NotificationStatusObjcKey = "P9PhotoAlbumManagerNotificationStatusObjcKey"
-    static let NotificationOperationKey = "P9PhotoAlbumManagerNotificationOperationKey"
-    static let NotificationStatusKey = "P9PhotoAlbumManagerNotificationStatusKey"
+    @objc public static let NotificationOperationObjcKey = "P9PhotoAlbumManagerNotificationOperationObjcKey"
+    @objc public static let NotificationStatusObjcKey = "P9PhotoAlbumManagerNotificationStatusObjcKey"
+    public static let NotificationOperationKey = "P9PhotoAlbumManagerNotificationOperationKey"
+    public static let NotificationStatusKey = "P9PhotoAlbumManagerNotificationStatusKey"
     
-    @objc static let maximumImageSize = PHImageManagerMaximumSize
+    @objc public static let maximumImageSize = PHImageManagerMaximumSize
     
     @objc(P9PhotoAlbumManagerOperation) public enum Operation: Int {
         case authorization
@@ -75,24 +75,24 @@ open class P9PhotoAlbumManager: NSObject {
         var mediaTypes:[MediaType] = [.image]
         var ascending:Bool = false
         
-        @objc convenience init(type:Int) {
+        @objc public convenience init(type:Int) {
             
             let convertedType = PredefinedAlbumType(rawValue: type) ?? .cameraRoll
             self.init(type: convertedType, mediaTypes: [.image], ascending: false)
         }
         
-        convenience init(type:PredefinedAlbumType) {
+        public convenience init(type:PredefinedAlbumType) {
             self.init(type: type, mediaTypes: [.image], ascending: false)
         }
         
-        @objc convenience init(type:Int, mediaTypes:[Int], ascending:Bool) {
+        @objc public convenience init(type:Int, mediaTypes:[Int], ascending:Bool) {
             
             let convertedType = PredefinedAlbumType(rawValue: type) ?? .cameraRoll
             let convertedMediaTypes = mediaTypes.map({ MediaType(rawValue: $0) ?? .unknown})
             self.init(type: convertedType, mediaTypes: convertedMediaTypes, ascending: ascending)
         }
         
-        convenience init(type:PredefinedAlbumType, mediaTypes:[MediaType], ascending:Bool) {
+        public convenience init(type:PredefinedAlbumType, mediaTypes:[MediaType], ascending:Bool) {
             self.init()
             switch type {
             case .cameraRoll :
@@ -122,7 +122,7 @@ open class P9PhotoAlbumManager: NSObject {
             self.ascending = ascending
         }
         
-        @objc convenience init(collectionType:Int, collectionTypeSubtype:Int, mediaTypes:[Int], ascending:Bool) {
+        @objc public convenience init(collectionType:Int, collectionTypeSubtype:Int, mediaTypes:[Int], ascending:Bool) {
             
             let convertedCollectionType = PHAssetCollectionType(rawValue: collectionType) ?? .smartAlbum
             let convertedCollectionTypeSubtype = PHAssetCollectionSubtype(rawValue: collectionType) ?? .smartAlbumUserLibrary
@@ -130,7 +130,7 @@ open class P9PhotoAlbumManager: NSObject {
             self.init(collectionType: convertedCollectionType, collectionTypeSubtype: convertedCollectionTypeSubtype, mediaTypes: convertedMediaTypes, ascending: ascending)
         }
         
-        convenience init(collectionType:PHAssetCollectionType, collectionTypeSubtype:PHAssetCollectionSubtype, mediaTypes:[MediaType], ascending:Bool) {
+        public convenience init(collectionType:PHAssetCollectionType, collectionTypeSubtype:PHAssetCollectionSubtype, mediaTypes:[MediaType], ascending:Bool) {
             self.init()
             self.collectionType = collectionType
             self.collectionTypeSubtype = collectionTypeSubtype
@@ -147,9 +147,9 @@ open class P9PhotoAlbumManager: NSObject {
     private var albums:[PHAssetCollection] = []
     private var assetsAtAlbumIndex:[Int:[PHAsset]] = [:]
     
-    @objc var autoReloadWhenAppWillEnterForeground:Bool = true
+    @objc public var autoReloadWhenAppWillEnterForeground:Bool = true
     
-    @objc static let shared = P9PhotoAlbumManager()
+    @objc public static let shared = P9PhotoAlbumManager()
     
     public override init() {
         super.init()
@@ -164,13 +164,13 @@ open class P9PhotoAlbumManager: NSObject {
         }
     }
     
-    @objc var authorized:Bool {
+    @objc public var authorized:Bool {
         get {
             return (PHPhotoLibrary.authorizationStatus() == .authorized)
         }
     }
     
-    @objc func authorization(completion:P9PhotoAlbumManagerCompletionBlock?) {
+    @objc public func authorization(completion:P9PhotoAlbumManagerCompletionBlock?) {
         
         if PHPhotoLibrary.authorizationStatus() == .authorized {
             postNotify(operation: .authorization, status: .succeed, completion: completion)
@@ -181,7 +181,7 @@ open class P9PhotoAlbumManager: NSObject {
         }
     }
     
-    @objc func requestAlbums(byInfos infos:[AlbumInfo], completion:P9PhotoAlbumManagerCompletionBlock?) {
+    @objc public func requestAlbums(byInfos infos:[AlbumInfo], completion:P9PhotoAlbumManagerCompletionBlock?) {
         
         guard authorized == true, infos.count > 0 else {
             postNotify(operation: .requestAlbums, status: .failed, completion: completion)
@@ -203,7 +203,7 @@ open class P9PhotoAlbumManager: NSObject {
         }
     }
     
-    func requestMedia(atAlbumIndex albumIndex:Int, completion:P9PhotoAlbumManagerCompletionBlock?) {
+    public func requestMedia(atAlbumIndex albumIndex:Int, completion:P9PhotoAlbumManagerCompletionBlock?) {
         
         guard authorized == true, 0 <= albumIndex, albumIndex < albums.count else {
             postNotify(operation: .requestMedias, status: .failed, completion: completion)
@@ -222,12 +222,12 @@ open class P9PhotoAlbumManager: NSObject {
     }
     
     @objc(createAlbumTitle:mediaTypes:ascending:completion:)
-    func objc_createAlbum(title:String, mediaTypes:[Int], ascending:Bool, completion:P9PhotoAlbumManagerCompletionBlock?) {
+    public func objc_createAlbum(title:String, mediaTypes:[Int], ascending:Bool, completion:P9PhotoAlbumManagerCompletionBlock?) {
         
         createAlbum(title: title, mediaTypes: mediaTypes.map({ MediaType(rawValue: $0) ?? .unknown}), ascending: ascending, completion: completion)
     }
     
-    func createAlbum(title:String, mediaTypes:[MediaType], ascending:Bool, completion:P9PhotoAlbumManagerCompletionBlock?) {
+    public func createAlbum(title:String, mediaTypes:[MediaType], ascending:Bool, completion:P9PhotoAlbumManagerCompletionBlock?) {
         
         guard authorized == true, title.count > 0, mediaTypes.count > 0 else {
             self.postNotify(operation: .createAlbum, status: .failed, completion: completion)
@@ -252,7 +252,7 @@ open class P9PhotoAlbumManager: NSObject {
         }
     }
     
-    @objc func deleteAlbum(index:Int, completion:P9PhotoAlbumManagerCompletionBlock?) {
+    @objc public func deleteAlbum(index:Int, completion:P9PhotoAlbumManagerCompletionBlock?) {
         
         guard authorized == true, 0 <= index, index < albums.count else {
             postNotify(operation: .deleteAlbum, status: .failed, completion: completion)
@@ -273,7 +273,7 @@ open class P9PhotoAlbumManager: NSObject {
         }
     }
     
-    @objc func renameAlbum(index:Int, title:String, completion:P9PhotoAlbumManagerCompletionBlock?) {
+    @objc public func renameAlbum(index:Int, title:String, completion:P9PhotoAlbumManagerCompletionBlock?) {
         
         guard authorized == true, 0 <= index, index < albums.count, title.count > 0 else {
             postNotify(operation: .deleteAlbum, status: .failed, completion: completion)
@@ -296,7 +296,7 @@ open class P9PhotoAlbumManager: NSObject {
         }
     }
     
-    @objc func savePhotoImage(image:UIImage, toAlbumIndex albumIndex:Int, completion:P9PhotoAlbumManagerCompletionBlock?) {
+    @objc public func savePhotoImage(image:UIImage, toAlbumIndex albumIndex:Int, completion:P9PhotoAlbumManagerCompletionBlock?) {
         
         guard authorized == true, 0 <= albumIndex, albumIndex < albums.count else {
             postNotify(operation: .saveMediaToAlbum, status: .failed, completion: completion)
@@ -329,7 +329,7 @@ open class P9PhotoAlbumManager: NSObject {
         }
     }
     
-    @objc func saveMediaFile(url:URL, mediaType:MediaType, toAlbumIndex albumIndex:Int, completion:P9PhotoAlbumManagerCompletionBlock?) {
+    @objc public func saveMediaFile(url:URL, mediaType:MediaType, toAlbumIndex albumIndex:Int, completion:P9PhotoAlbumManagerCompletionBlock?) {
         
         guard authorized == true, url.isFileURL == true, 0 <= albumIndex, albumIndex < albums.count else {
             postNotify(operation: .saveMediaToAlbum, status: .failed, completion: completion)
@@ -372,7 +372,7 @@ open class P9PhotoAlbumManager: NSObject {
         }
     }
     
-    @objc func deleteMedia(index:Int, fromAlbumIndex albumIndex:Int, completion:P9PhotoAlbumManagerCompletionBlock?) {
+    @objc public func deleteMedia(index:Int, fromAlbumIndex albumIndex:Int, completion:P9PhotoAlbumManagerCompletionBlock?) {
         
         guard authorized == true, 0 <= albumIndex, albumIndex < albums.count, let assets = assetsAtAlbumIndex[albumIndex], 0 <= index, index < assets.count else {
             postNotify(operation: .deleteMediaFromAlbum, status: .failed, completion: completion)
@@ -391,7 +391,7 @@ open class P9PhotoAlbumManager: NSObject {
         }
     }
     
-    @objc func deleteMedia(indices:[Int], fromAlbumIndex albumIndex:Int, completion:P9PhotoAlbumManagerCompletionBlock?) {
+    @objc public func deleteMedia(indices:[Int], fromAlbumIndex albumIndex:Int, completion:P9PhotoAlbumManagerCompletionBlock?) {
         
         guard authorized == true, 0 <= albumIndex, albumIndex < albums.count, let assets = assetsAtAlbumIndex[albumIndex], indices.count > 0 else {
             postNotify(operation: .deleteMediaFromAlbum, status: .failed, completion: completion)
@@ -423,7 +423,7 @@ open class P9PhotoAlbumManager: NSObject {
         }
     }
     
-    @objc func reload(_ completion:P9PhotoAlbumManagerCompletionBlock?) {
+    @objc public func reload(_ completion:P9PhotoAlbumManagerCompletionBlock?) {
         
         serialQueue.async {
             var albumInfos:[AlbumInfo] = []
@@ -456,7 +456,7 @@ open class P9PhotoAlbumManager: NSObject {
         }
     }
     
-    @objc func clearCache() {
+    @objc public func clearCache() {
         
         serialQueue.async {
             self.albumInfos.removeAll()
@@ -466,7 +466,7 @@ open class P9PhotoAlbumManager: NSObject {
         }
     }
     
-    @objc func numberOfAlbums() -> Int {
+    @objc public func numberOfAlbums() -> Int {
         
         guard authorized == true else {
             return 0
@@ -475,7 +475,7 @@ open class P9PhotoAlbumManager: NSObject {
         return albums.count
     }
     
-    @objc func titleOfAlbum(forIndex index:Int) -> String? {
+    @objc public func titleOfAlbum(forIndex index:Int) -> String? {
         
         guard authorized == true, 0 <= index, index < albums.count else {
             return nil
@@ -485,12 +485,12 @@ open class P9PhotoAlbumManager: NSObject {
     }
     
     @objc(predefineTypeOfAlbum:)
-    func objc_predefineTypeOfAlbum(forIndex index:Int) -> Int {
+    public func objc_predefineTypeOfAlbum(forIndex index:Int) -> Int {
         
         return predefineTypeOfAlbum(forIndex: index)?.rawValue ?? PredefinedAlbumType.customCollectionType.rawValue
     }
     
-    func predefineTypeOfAlbum(forIndex index:Int) -> PredefinedAlbumType? {
+    public func predefineTypeOfAlbum(forIndex index:Int) -> PredefinedAlbumType? {
         
         guard authorized == true, 0 <= index, index < albums.count else {
             return nil
@@ -530,7 +530,7 @@ open class P9PhotoAlbumManager: NSObject {
         return .customCollectionType
     }
     
-    @objc func infoOfAlbum(forIndex index:Int) -> AlbumInfo? {
+    @objc public func infoOfAlbum(forIndex index:Int) -> AlbumInfo? {
         
         guard authorized == true, 0 <= index, index < albums.count else {
             return nil
@@ -539,7 +539,7 @@ open class P9PhotoAlbumManager: NSObject {
         return albumInfos[index]
     }
     
-    @objc func numberOfMediaAtAlbum(forIndex index:Int) -> Int {
+    @objc public func numberOfMediaAtAlbum(forIndex index:Int) -> Int {
         
         guard authorized == true, 0 <= index, index < albums.count else {
             return 0
@@ -556,7 +556,7 @@ open class P9PhotoAlbumManager: NSObject {
         return PHAsset.fetchAssets(in: albums[index], options: options).count
     }
     
-    @objc func mediaTypeOfMedia(forIndex mediaIndex:Int, atAlbumIndex albumIndex:Int) -> MediaType {
+    @objc public func mediaTypeOfMedia(forIndex mediaIndex:Int, atAlbumIndex albumIndex:Int) -> MediaType {
         
         guard authorized == true, 0 <= albumIndex, albumIndex < albums.count else {
             return .unknown
@@ -577,7 +577,7 @@ open class P9PhotoAlbumManager: NSObject {
         return .unknown
     }
     
-    @objc func imageOfMedia(forIndex mediaIndex:Int, atAlbumIndex albumIndex:Int, targetSize:CGSize, contentMode:ContentMode) -> UIImage? {
+    @objc public func imageOfMedia(forIndex mediaIndex:Int, atAlbumIndex albumIndex:Int, targetSize:CGSize, contentMode:ContentMode) -> UIImage? {
         
         guard authorized == true, 0 <= albumIndex, albumIndex < albums.count else {
             return nil
@@ -605,7 +605,7 @@ open class P9PhotoAlbumManager: NSObject {
         return foundImage
     }
     
-    @objc func fileUrlOfMedia(forIndex mediaIndex:Int, atAlbumIndex albumIndex:Int) -> URL? {
+    @objc public func fileUrlOfMedia(forIndex mediaIndex:Int, atAlbumIndex albumIndex:Int) -> URL? {
         
         guard authorized == true, 0 <= albumIndex, albumIndex < albums.count else {
             return nil
@@ -643,7 +643,7 @@ open class P9PhotoAlbumManager: NSObject {
         return fileUrl
     }
     
-    @objc func assetOfMedia(forIndex mediaIndex:Int, atAlbumIndex albumIndex:Int) -> PHAsset? {
+    @objc public func assetOfMedia(forIndex mediaIndex:Int, atAlbumIndex albumIndex:Int) -> PHAsset? {
         
         guard authorized == true, 0 <= albumIndex, albumIndex < albums.count else {
             return nil
